@@ -2,21 +2,21 @@ version: 2.1
 
 # jobs 
 jobs: 
-	pull-and-build:
-		docker:
-			-image: arvidr226/alpine-ssh
-		steps:
-			- checkout
-			- run ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
+  pull-and-build:
+    docker:
+    - image: arvidr226/alpine-ssh
+    steps:
+      - checkout
+      - run ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
 
 # orchestrate our job run sequence
 workflows:
-	version: 2
-	build-project: 
-		jobs:
-			- pull-and-build:
-				filters: 
-					branches: 
-						only:
-							- main
+  version: 2
+  build-project: 
+    jobs:
+      - pull-and-build:
+        filters: 
+          branches: 
+            only:
+              - main
 
